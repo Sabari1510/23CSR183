@@ -1,0 +1,14 @@
+{
+  "name": "logging_middleware",
+  "version": "1.0.0",
+  "description": "Reusable logging middleware for backend applications.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/example.js",
+    "demo": "node src/example.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7",
+    "dotenv": "^16.0.0"
+  }
+}

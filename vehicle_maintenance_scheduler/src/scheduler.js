@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 
 async function fetchJson(url, token) {
   const headers = { 'Content-Type': 'application/json' };
+  console.log(`[DEBUG-fetchJson] URL: ${url}`);
+  console.log(`[DEBUG-fetchJson] Token provided: ${token ? token.substring(0, 20) + '...' : 'NONE'}`);
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const res = await fetch(url, { headers });
@@ -61,6 +63,8 @@ function knapsack(items, capacity) {
 
 async function scheduleAll(apiBase, token) {
   if (!apiBase) throw new Error('apiBase is required');
+  console.log(`[DEBUG-scheduleAll] apiBase: ${apiBase}`);
+  console.log(`[DEBUG-scheduleAll] token received: ${token ? token.substring(0, 20) + '...' : 'NONE'}`);
 
   const depotsUrl = `${apiBase.replace(/\/$/, '')}/depots`;
   const vehiclesUrl = `${apiBase.replace(/\/$/, '')}/vehicles`;

@@ -16,8 +16,16 @@ app.use(bodyParser.json());
 const API_BASE = process.env.EVAL_API_BASE || 'http://4.224.186.213/evaluation-service';
 const TOKEN = process.env.LOG_AUTH_TOKEN || process.env.AUTH_TOKEN || process.env.TOKEN || process.env.EVAL_API_TOKEN;
 
+console.log('[DEBUG] Scheduler config:');
+console.log(`  API_BASE: ${API_BASE}`);
+console.log(`  TOKEN: ${TOKEN ? TOKEN.substring(0, 20) + '...' : 'NOT SET'}`);
+
 app.get('/schedule', async (req, res) => {
   try {
+    console.log('[DEBUG] /schedule endpoint called');
+    console.log(`[DEBUG] Using API_BASE: ${API_BASE}`);
+    console.log(`[DEBUG] Using TOKEN: ${TOKEN ? TOKEN.substring(0, 20) + '...' : 'NONE'}`);
+    
     const schedules = await scheduleAll(API_BASE, TOKEN);
 
     if (Log) {
@@ -30,6 +38,7 @@ app.get('/schedule', async (req, res) => {
 
     res.json({ schedules });
   } catch (err) {
+    console.error('[ERROR] Schedule generation failed:', err);
     if (Log) {
       try { Log('backend', 'error', 'service', `Schedule generation failed: ${err.message}`); } catch (e) {}
     }
